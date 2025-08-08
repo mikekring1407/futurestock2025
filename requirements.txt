@@ -1,8 +1,9 @@
-streamlit
-yfinance
-pycaret
-darts
-transformers
+streamlit==1.35.0
+yfinance==0.2.37
+pycaret==3.3.0
+scikit-learn==1.4.2
+darts==0.29.0
+transformers==4.40.1
 torch
-prophet
-matplotlib
+prophet==1.1.5
+matplotlib==3.8.4
