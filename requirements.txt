@@ -1,0 +1,11 @@
+streamlit
+yfinance
+pycaret[full]
+darts
+transformers
+torch
+prophet
+pandas
+scikit-learn
+numpy
+matplotlib
