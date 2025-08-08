@@ -1,50 +1,4 @@
 import streamlit as st
-import subprocess
-import sys
-import os
-
-# --- Installation Block ---
-# This function uses Python's subprocess to reliably install packages.
-# This is more robust for Streamlit apps than using !pip.
-def install_packages():
-    st.write("Installing necessary libraries... This may take a few minutes.")
-    
-    # List of packages to install
-    packages = [
-        "yfinance",
-        "pycaret[full]",
-        "darts",
-        "transformers",
-        "torch",
-        "prophet"
-    ]
-    
-    # Upgrade specific packages to avoid conflicts
-    upgrade_packages = ["pandas", "scikit-learn", "numpy", "matplotlib"]
-
-    for package in packages:
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-        except subprocess.CalledProcessError as e:
-            st.error(f"Failed to install {package}: {e}")
-            st.stop()
-            
-    for package in upgrade_packages:
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", package])
-        except subprocess.CalledProcessError as e:
-            st.error(f"Failed to upgrade {package}: {e}")
-            st.stop()
-
-# A flag to ensure installation runs only once per session
-if 'dependencies_installed' not in st.session_state:
-    install_packages()
-    st.session_state['dependencies_installed'] = True
-    # Rerun the script to ensure all modules are loaded correctly after installation
-    st.rerun()
-
-
-# --- Main App Code ---
 import pandas as pd
 import yfinance as yf
 from prophet import Prophet
@@ -55,6 +9,7 @@ from darts.models import LSTM
 from transformers import pipeline
 import matplotlib.pyplot as plt
 import logging
+import os
 
 # Suppress verbose logging from libraries to keep the output clean
 logging.getLogger("pycaret").setLevel(logging.ERROR)
@@ -202,4 +157,3 @@ st.sidebar.info(
     "**Disclaimer:** This is an educational tool and should not be used for real financial decisions. "
     "Stock market prediction is inherently complex and risky."
 )
-
